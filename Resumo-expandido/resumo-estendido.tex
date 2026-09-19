@@ -1,0 +1,115 @@
+\documentclass[11pt]{../../modelos-latex/classes/ifscarticle}
+\usepackage{../../modelos-latex/classes/ifscutils}
+\geometry{a4paper,hmargin=2cm,top=3.5cm,bottom=2cm,headheight=3cm,heightrounded}
+
+\usepackage[style=abnt,noslsn,justify]{biblatex}
+\usepackage{csquotes}
+% Bibliografia do(a) aluno(a): exporte o seu .bib do Zotero/Mendeley com o
+% nome referencias.bib e deixe-o na mesma pasta deste arquivo. O arquivo
+% distribuído junto com este template já traz entradas de exemplo.
+\addbibresource{referencias.bib}
+
+% -----------------------------------------------------------------
+% Template de resumo estendido -- TCC1 EngTel
+% Estrutura conforme wiki de recursos da UC (TCC1-EngTel, página):
+%   resumo <=250 palavras; introdução/metodologia/resultados <=1000
+%   palavras cada; considerações <=200 palavras; 3-5 palavras-chave.
+% -----------------------------------------------------------------
+
+\begin{document}
+
+\begin{center}
+	{\Large \textbf{Autenticação e delegação dinâmica em ecossistema agêntico
+}}\vspace{.3cm}
+
+	Marcos Vinicius Wagner\textsuperscript{1}, Emerson Ribeiro de Mello\textsuperscript{2}
+
+	\vspace{.2cm}
+	{\small
+	\textsuperscript{1}Curso de Engenharia de Telecomunicações, IFSC Câmpus São José\\
+	\textsuperscript{2}Orientador(a), IFSC Câmpus São José
+	}
+\end{center}
+
+\vspace{.5cm}
+
+\section*{Resumo}
+% Máximo de 250 palavras. Contextualize o tema, o problema, o objetivo e a
+% abordagem esperada em um único parágrafo.
+O avanço da Inteligência Artificial agêntica introduziu sistemas capazes de atuar com alto grau de autonomia, interagindo com ferramentas externas e outros agentes através de diferentes domínios de confiança. No entanto, essa autonomia traz um desafio, é necessário identificar esse agente. Quando um serviço receber uma solicitação dele, o serviço deve entender que veio diretamente do usuario. A ausência de uma arquitetura de identidade dedicada gera falhas graves de segurança, como a personificação. Nesse contexto, este trabalho tem como objetivo analisar e estruturar modelos arquiteturais de gestão de identidade para agentes autônomos. A pesquisa será desenvolvida por meio de uma revisão da literatura sobre agentes de IA e gestão de identidade e acesso, seguida da identificação de requisitos e da análise comparativa de abordagens arquiteturais existentes. Como resultado, espera-se elaborar uma proposta de modelo arquitetural de gestão de identidade para agentes de IA. Espera-se, assim, contribuir para a discussão e estruturação de mecanismos de identidade e delegação adequados à atuação autônoma de agentes de IA.
+
+\noindent\textbf{Palavras-chave:} IA agêntica; gestão de identidade e acesso; Segurança da informação.
+% 3 a 5 palavras-chave, separadas por ponto-e-vírgula.
+
+\section{Introdução}
+% Máximo de 1000 palavras. Contextualização do tema, motivação, problema de
+% pesquisa e objetivos (geral e específicos).
+O avanço da Inteligência Artificial agêntica introduziu sistemas capazes de atuar com alto grau de autonomia, interagindo com ferramentas externas e outros agentes através de diferentes domínios de confiança. No entanto, essa autonomia traz um desafio, é necessário identificar esse agente. Quando um serviço receber uma solicitação dele, o serviço deve entender que veio diretamente do usuario. A ausência de uma arquitetura de identidade dedicada gera falhas graves de segurança, como a personificação, um cenário em que o agente de IA utiliza as credenciais do usuário de forma indistinguível, como login e senha. Isso impossibilita que os logs de auditoria diferenciem as ações humanas das ações da máquina, levando à perda de rastreabilidade, e perda de limites das ações que a IA pode executar. 
+
+É fundamental para essa resolução, resgatar o conceito de Gestão de Identidade e Acesso (GID). A GID busca garantir que as entidades certas acessem os recursos certos, pelas razões certas. Esse controle é sustentado por três pilares chamados de AAA, a Autenticação (verificação de quem é a entidade), a Autorização (controle de quais privilégios a entidade possui) e a Auditoria (rastreabilidade das ações executadas pela entidade). \cite{melloGestaoIdentidadeAcesso}
+
+Em modelos com agentes autônomos, o grande desafio é fazer com que esses três pilares operem de forma segura sem a intervenção humana constante. Isso exige uma mudança de paradigma da "personificação" para a "delegação", também conhecida como padrão On-Behalf-Of (OBO)\cite{openid-agentic-identity}. Nesse modelo, a infraestrutura de identidade passa a distinguir claramente o Subject, o usuário que delega a tarefa, do Actor, o agente de IA que a executa, garantindo que os protocolos de transporte carreguem ambas as identidades de forma vinculada e assinada.
+
+\subsection{Objetivo Geral}
+O objetivo geral deste trabalho é analisar e estruturar modelos arquiteturais de gestão de identidade para IA agêntica, baseados no padrão de delegação OBO, para garantir a rastreabilidade, o controle de escopo e a segurança nas interações entre múltiplos domínios de confiança. 
+
+\begin{itemize}
+    \item \textbf{Estudar as abordagens de personificação e delegação:} Estabelecer os requisitos para que a infraestrutura possa diferenciar e vincular a identidade do usuário que delegou e a do agente que esta executando.
+    
+    \item \textbf{Comparar os modelos arquiteturais de identidade:} Avaliar implementações de delegação para agentes baseado em seus modelos de identificadores, protocolos de delegação e infraestruturas.
+    
+    \item \textbf{Projetar uma proposta de modelo:} Baseado nos resultados da comparação, propor um modelo arquitetural de gestão de identidade para agentes autônomos, considerando os requisitos estudados.
+\end{itemize}
+
+
+\section{Metodologia}
+% Máximo de 1000 palavras. Método de trabalho previsto para investigar/atacar
+% o problema. Em TCC1 pode ser uma metodologia preliminar, a ser detalhada no
+% documento de pré-projeto.
+
+O trabalho será desenvolvido por meio de uma pesquisa dividida em etapas. Inicialmente, será realizada uma revisão da literatura sobre Agentes de IA, entender suas principais arquiteturas, cenarios de uso e tecnologias envolvidas. Então, uma revisão focada na gestão de identidade e acesso aplicada a agentes de IA, com foco nos mecanismos de autenticação, autorização, delegação e auditoria. Serão investigadas abordagens que permitam distinguir a identidade do usuário da identidade do agente que atua em seu nome, e mecanismos de identidade e credenciais digitais para ambientes distribuídos.
+
+Serão identificados os principais requisitos de para a gestão de identidade em sistemas com multi-agentico. Entre os requisitos considerados estão a identificação individual do agente, a vinculação entre o agente e o usuário que delegou a ação, a limitação do escopo das permissões, a possibilidade de rastrear as ações realizadas, a capacidade de operar entre diferentes domínios, e o ciclo de vida dos agentes.
+
+Serão selecionados e analisados as possiveis abordagens arquiteturais de gestão de identidade para agentes autônomos, considerando os requisitos identificados. Os resultados serão organizados de forma comparativa, destacando os potenciais e limitações de cada abordagem. 
+
+Será elaborado uma proposta de modelo arquitetural de gestão de identidade para agentes autônomos, considerando os requisitos estudados e as melhores práticas identificadas na literatura.
+
+\section{Resultados e discussão esperados}
+% Máximo de 1000 palavras. O que se espera obter/demonstrar ao final do
+% trabalho (TCC1 + TCC2); não é necessário ter resultados definitivos nesta
+% etapa.
+
+Como resultado deste trabalho, é esperado a elaboração de uma proposta de modelo arquitetural de gestão de identidade para agentes autônomos, considerando os requisitos identificados e os resultados da análise das abordagens existentes. A proposta deverá ser capaz de:
+\begin{itemize}
+	\item diferenciar a identidade do usuário da identidade do agente que atua em seu nome;
+	\item garantir a rastreabilidade das ações realizadas;
+	\item limitar o escopo das permissões do agente;
+	\item permitir a operação entre diferentes domínios;
+	\item gerenciar o ciclo de vida dos agentes.
+\end{itemize}
+
+Diferenciar a identidade do usuário da identidade do agente é fundamental para permitir que o agente seja reconhecido como uma entidade distinta, mesmo quando atua em nome do usuario, garantindo que o serviço que recebe a solicitação possa identificar a origem da ação, sem entregar todos os privilegios do usuario para o agente.
+
+A rastreabilidade deve garantir a auditoria das ações realizadas pelo agente, sabendo exatamente qual ação foi realizada por qual agente, em qual contexto e em nome de qual usuario, permitindo a identificação de falhas, comportamentos inesperados. É esperado a rastreabilidade de multiplos agentes atuando em nome de um mesmo usuario, assim como uma cadeia de delegação para sistemas com delegação entre agentes.
+
+O controle de permissoes deve permitir que o agente execute apenas as ações necessárias para cumprir a tarefa delegada, evitando que o agente tenha acesso a recursos desnecessários ou sensíveis. Evitando que o agente tenha todas as ações que o usuario poderia executar, e garantindo que o agente atue apenas dentro dos limites estabelecidos. Possuindo um conjunto delimitado de permissões e e recursos que o agente pode acessar. É esperado tambem um estudo sobre possibilidade de revogação de permissões, para que o usuario possa revogar a delegação a qualquer momento, e que o agente não tenha mais acesso aos recursos.
+
+A operação entre diferentes domínios deve permitir que o agente se comunique em diferentes sistemas, serviços e organizações, ou com outros agentes. Onde é necessario que verificação da identidade e reconhecimento de confiança com o usuario que delegou a ação.
+
+Gerenciamento do ciclo de vida dos agentes deve permitir que o agente seja criado, e atue apenas dentro do tempo necessário para cumprir a tarefa delegada, sendo encerrado após a conclusão da tarefa, será estudos modelos persistentes, onde o agente pode ser reutilizado para outras tarefas, tendo um ciclo de vida mais longo, e modelos efemeros, onde o agente é criado para uma unica tarefa e é encerrado após a conclusão, tendo sua identdade e permissões descartadas.
+
+\section{Considerações}
+% Máximo de 200 palavras. Síntese da relevância do tema e do que se espera
+% contribuir com o trabalho.
+% Só aparecem aqui as referências efetivamente citadas no texto, com
+% \cite{chave} ou \textcite{chave}.
+
+a crescente adoção de agentes autonomos em diversos setores, desde assistentes pessoais até tomadas de decisões em sistemas criticos, torna essencial a implementação de mecanismos de indentidade e acesso, para garantir a minimização de falhas e garantir a auditoria caso haja algum problema. 
+
+O trabalho busca contribuir para a discussão sobre gestão de identidade aplicada à IA agêntica por meio da sistematização dos requisitos relacionados à autenticação, autorização, auditoria e delegação. E analise de modelos existentes para adequação desses modelos aos requisitos identificados. dessa forma, o trabalho pretende contribuir para a construção de um ecossistema agentico mais seguro e confiavel, onde a interação entre agentes e usuários seja transparente, rastreável e controlada, promovendo a confiança na utilização de agentes autônomos em diferentes contextos.
+
+
+\printbibliography[heading=bibintoc,title={Referências}]
+
+\end{document}
